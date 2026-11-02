@@ -90,7 +90,7 @@ response = requests.get(
     params={
         "query": "mountain landscape",
     },
-    timeout=60,
+    timeout=120,
 )
 response.raise_for_status()
 data = response.json()
@@ -230,7 +230,7 @@ response = requests.get(
     params={
         "query": "software engineer",
     },
-    timeout=60,
+    timeout=120,
 )
 response.raise_for_status()
 data = response.json()
@@ -325,7 +325,7 @@ response = requests.get(
     params={
         "query": "coffee shop paris",
     },
-    timeout=60,
+    timeout=120,
 )
 response.raise_for_status()
 data = response.json()
@@ -470,7 +470,7 @@ response = requests.get(
     params={
         "query": "anthropic",
     },
-    timeout=60,
+    timeout=120,
 )
 response.raise_for_status()
 data = response.json()
@@ -668,7 +668,7 @@ response = requests.get(
     params={
         "query": "what is mozilla firefox",
     },
-    timeout=60,
+    timeout=120,
 )
 response.raise_for_status()
 data = response.json()
@@ -825,7 +825,7 @@ response = requests.get(
     params={
         "query": "coffee",
     },
-    timeout=60,
+    timeout=120,
 )
 response.raise_for_status()
 data = response.json()
@@ -946,7 +946,7 @@ response = requests.get(
     params={
         "query": "playstation 5",
     },
-    timeout=60,
+    timeout=120,
 )
 response.raise_for_status()
 data = response.json()
@@ -1113,7 +1113,7 @@ response = requests.get(
     params={
         "query": "paris travel guide",
     },
-    timeout=60,
+    timeout=120,
 )
 response.raise_for_status()
 data = response.json()
