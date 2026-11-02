@@ -8,7 +8,7 @@
 
 The **Piloterr Google Scraper API** lets you extract public data from Google as **clean, structured JSON** — no proxies, headless browsers or HTML parsing to maintain. Endpoints available in production:
 
-- **Google Images API** — Google Images Scraper API – bringing the power of visual search to your fingertips.
+- **Google Images API** — Google Images Scraper API: bringing the power of visual search to your fingertips.
 - **Google Jobs API** — Extract job listings from Google Careers for enhanced recruitment and market analysis.
 - **Google Maps API** — Extract comprehensive company data from Google Maps for enhanced business insights.
 - **Google Search API** — Scrape real-time Google search results with organic listings, knowledge graph, related searches, and advanced filters.
@@ -21,7 +21,7 @@ Use it for SEO rank tracking, SERP monitoring, ad intelligence, market research 
 
 | Endpoint | Path | Credits | What you get |
 |---|---|---|---|
-| [Google Images API](#google-images-api) | `/v2/google/images` | 1 | Google Images Scraper API – bringing the power of visual search to your fingertips. |
+| [Google Images API](#google-images-api) | `/v2/google/images` | 1 | Google Images Scraper API |
 | [Google Jobs API](#google-jobs-api) | `/v2/google/jobs` | 1 | Extract job listings from Google Careers for enhanced recruitment and market analysis. |
 | [Google Maps API](#google-maps-api) | `/v2/google/maps` | 3 | Extract comprehensive company data from Google Maps for enhanced business insights. |
 | [Google Search API](#google-search-api) | `/v2/google/search` | 1 | Scrape real-time Google search results with organic listings, knowledge graph, related searches, and advanced filters. |
@@ -64,7 +64,7 @@ pip install requests        # Python
 
 ## Google Images API
 
-Google Images Scraper API – bringing the power of visual search to your fingertips.
+Google Images Scraper API: bringing the power of visual search to your fingertips.
 
 `GET | POST https://api.piloterr.com/v2/google/images` · **1 credit per request** · [Full reference](https://app.piloterr.com/openapi)
 
@@ -76,7 +76,6 @@ Google Images Scraper API – bringing the power of visual search to your finger
 | `gl` | string | — | Two-letter country code for the Google image search country context. |
 | `hl` | string | — | Two-letter language code for the Google interface language. Controls the language context of the image search. |
 | `page` | number | — | Page number for pagination. Images are returned in batches of 100 per page. |
-| `safe` | string | — | Adult content filter. `active` enables Google SafeSearch; `off` disables it. Omit to use Google default. |
 
 ### Python example
 
@@ -457,7 +456,6 @@ Scrape real-time Google search results with organic listings, knowledge graph, r
 | `hl` | string | — | Two-letter language code for the Google interface language. |
 | `page` | number | — | Page number of search results to retrieve. |
 | `num` | number | — | Maximum number of results to return per page (e.g. `10`, `40`, `100`). |
-| `safe` | string | — | Adult content filter. `active` enables Google SafeSearch; `off` disables it. Omit to use Google default. |
 
 ### Python example
 
@@ -470,7 +468,7 @@ response = requests.get(
     "https://api.piloterr.com/v2/google/search",
     headers={"x-api-key": os.environ["PILOTERR_API_KEY"]},
     params={
-        "query": "best electric cars 2024",
+        "query": "anthropic",
     },
     timeout=60,
 )
@@ -521,7 +519,7 @@ type GoogleSearch = {
 };
 
 const params = new URLSearchParams({
-  "query": "best electric cars 2024",
+  "query": "anthropic",
 });
 
 const response = await fetch(`https://api.piloterr.com/v2/google/search?${params}`, {
@@ -542,7 +540,7 @@ POST https://api.piloterr.com/v2/google/search
 x-api-key: YOUR_API_KEY
 Content-Type: application/json
 
-{"query": "best electric cars 2024"}
+{"query": "anthropic"}
 ```
 </details>
 
@@ -564,42 +562,38 @@ Example response from the API reference, abridged — real values depend on the 
   "knowledge_graph": null,
   "organic_results": [
     {
-      "link": "https://www.caranddriver.com/rankings/best-electric-cars",
-      "title": "Best Electric Vehicles for 2026, Tested",
-      "domain": "www.caranddriver.com",
-      "source": "Car and Driver",
-      "snippet": "We've ranked the best electric cars, trucks, and SUVs based on roughly 200 data points encompassing acceleration, handling, comfort, carg…",
+      "link": "https://www.anthropic.com/",
+      "title": "Anthropic",
+      "domain": "www.anthropic.com",
+      "source": "Anthropic",
+      "snippet": "Anthropic is an AI safety company. Claude is its assistant.",
       "position": 1,
-      "displayed_link": "https://www.caranddriver.com › rankings › best-electric...",
+      "displayed_link": "https://www.anthropic.com",
       "snippet_matched": [
-        "best",
-        "cars"
+        "anthropic"
       ]
     },
     {
-      "link": "https://www.edmunds.com/electric-car/",
-      "title": "Best Electric Cars of 2026 and 2027 - Expert Reviews and Rankings",
-      "domain": "www.edmunds.com",
-      "source": "Edmunds",
-      "snippet": "Best Electric cars: Tesla Model 3 Long Range, Hyundai IONIQ 6, 2026 Nissan LEAF, 2025 FIAT 500e",
+      "link": "https://docs.anthropic.com/",
+      "title": "Anthropic documentation",
+      "domain": "docs.anthropic.com",
+      "source": "Anthropic",
+      "snippet": "Documentation for the Claude API and the Anthropic platform.",
       "position": 2,
-      "displayed_link": "https://www.edmunds.com › electric-car",
-      "snippet_matched": [
-        "best",
-        "cars"
-      ]
+      "displayed_link": "https://docs.anthropic.com",
+      "snippet_matched": []
     }
   ],
   "related_searches": [
     {
-      "query": "Best electric cars 2024 hybrid"
+      "query": "Anthropic Claude"
     },
     {
-      "query": "Best electric cars in the world"
+      "query": "Anthropic API"
     }
   ],
   "search_parameters": {
-    "q": "best electric cars 2024",
+    "q": "anthropic",
     "gl": "us",
     "hl": "en",
     "tbs": null,
@@ -1105,7 +1099,6 @@ Scrape video results from Google Videos search including YouTube, Reddit, and ot
 | `hl` | string | — | Two-letter language code for the Google interface language. |
 | `page` | number | — | Page number of video results to retrieve. |
 | `num` | number | — | Maximum number of video results to return per page. |
-| `safe` | string | — | Adult content filter. `active` enables Google SafeSearch; `off` disables it. Omit to use Google default. |
 
 ### Python example
 

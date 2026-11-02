@@ -2,7 +2,7 @@
 // Usage: PILOTERR_API_KEY=your-key node search.mjs
 
 const params = new URLSearchParams({
-  "query": "best electric cars 2024",
+  "query": "anthropic",
 });
 
 const response = await fetch(`https://api.piloterr.com/v2/google/search?${params}`, {
