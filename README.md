@@ -8,7 +8,7 @@
 
 The **Piloterr Google Scraper API** lets you extract public data from Google as **clean, structured JSON** — no proxies, headless browsers or HTML parsing to maintain. Endpoints available in production:
 
-- **Google Images API** — Google Images Scraper API: bringing the power of visual search to your fingertips.
+- **Google Images API** — Google Images Scraper API – bringing the power of visual search to your fingertips.
 - **Google Jobs API** — Extract job listings from Google Careers for enhanced recruitment and market analysis.
 - **Google Maps API** — Extract comprehensive company data from Google Maps for enhanced business insights.
 - **Google Search API** — Scrape real-time Google search results with organic listings, knowledge graph, related searches, and advanced filters.
@@ -21,7 +21,7 @@ Use it for SEO rank tracking, SERP monitoring, ad intelligence, market research 
 
 | Endpoint | Path | Credits | What you get |
 |---|---|---|---|
-| [Google Images API](#google-images-api) | `/v2/google/images` | 1 | Google Images Scraper API |
+| [Google Images API](#google-images-api) | `/v2/google/images` | 1 | Google Images Scraper API – bringing the power of visual search to your fingertips. |
 | [Google Jobs API](#google-jobs-api) | `/v2/google/jobs` | 1 | Extract job listings from Google Careers for enhanced recruitment and market analysis. |
 | [Google Maps API](#google-maps-api) | `/v2/google/maps` | 3 | Extract comprehensive company data from Google Maps for enhanced business insights. |
 | [Google Search API](#google-search-api) | `/v2/google/search` | 1 | Scrape real-time Google search results with organic listings, knowledge graph, related searches, and advanced filters. |
@@ -65,7 +65,7 @@ pip install requests        # Python
 
 ## Google Images API
 
-Google Images Scraper API: bringing the power of visual search to your fingertips.
+Google Images Scraper API – bringing the power of visual search to your fingertips.
 
 `GET | POST https://api.piloterr.com/v2/google/images` · **1 credit per request** · [Full reference](https://app.piloterr.com/openapi)
 
@@ -74,9 +74,13 @@ Google Images Scraper API: bringing the power of visual search to your fingertip
 | Parameter | Type | Required | Description |
 |---|---|---|---|
 | `query` | string | ✅ | The image search query to execute on Google Images. |
-| `gl` | string | — | Two-letter country code for the Google image search country context. |
-| `hl` | string | — | Two-letter language code for the Google interface language. Controls the language context of the image search. |
+| `google_domain` | string | — | Google domain to use for the search. Defaults to `google.com`. |
+| `gl` | string | — | Country to use for the Google search. Two-letter country code (e.g. `us` for the United States, `uk` for United Kingdom, or `fr` for France). |
+| `hl` | string | — | Language to use for the Google search. Two or three-letter language code (e.g. `en`, `es`, `fr`), optionally followed by a region code (e.g. `en-gb`, `es-419`). |
+| `cr` | string | — | Limit results to one or more countries. Use `country{XX}` with `\|` as delimiter (e.g. `countryFR\|countryDE`). |
+| `lr` | string | — | Limit results to one or more languages. Use `lang_{xx}` with `\|` as delimiter (e.g. `lang_fr\|lang_de`). |
 | `page` | number | — | Page number for pagination. Images are returned in batches of 100 per page. |
+| `safe` | string | — | Adult content filter. `active` enables Google SafeSearch; `off` disables it. Omit to use Google default. |
 
 ### Python example
 
@@ -453,10 +457,14 @@ Scrape real-time Google search results with organic listings, knowledge graph, r
 | `tbs` | string | — | Advanced time-range and filter string for Google Search. Used to restrict results by recency. |
 | `location` | string | — | City or region from which the search should originate. Simulates a real user's search from the specified location. |
 | `uule` | string | — | Google-encoded location string for precise geographic targeting. |
-| `gl` | string | — | Two-letter country code for the Google search country context. |
-| `hl` | string | — | Two-letter language code for the Google interface language. |
+| `google_domain` | string | — | Google domain to use for the search. Defaults to `google.com`. |
+| `gl` | string | — | Country to use for the Google search. Two-letter country code (e.g. `us` for the United States, `uk` for United Kingdom, or `fr` for France). |
+| `hl` | string | — | Language to use for the Google search. Two or three-letter language code (e.g. `en`, `es`, `fr`), optionally followed by a region code (e.g. `en-gb`, `es-419`). |
+| `cr` | string | — | Limit results to one or more countries. Use `country{XX}` with `\|` as delimiter (e.g. `countryFR\|countryDE`). |
+| `lr` | string | — | Limit results to one or more languages. Use `lang_{xx}` with `\|` as delimiter (e.g. `lang_fr\|lang_de`). |
 | `page` | number | — | Page number of search results to retrieve. |
 | `num` | number | — | Maximum number of results to return per page (e.g. `10`, `40`, `100`). |
+| `safe` | string | — | Adult content filter. `active` enables Google SafeSearch; `off` disables it. Omit to use Google default. |
 
 ### Python example
 
@@ -469,7 +477,7 @@ response = requests.get(
     "https://api.piloterr.com/v2/google/search",
     headers={"x-api-key": os.environ["PILOTERR_API_KEY"]},
     params={
-        "query": "anthropic",
+        "query": "best electric cars 2024",
     },
     timeout=120,
 )
@@ -520,7 +528,7 @@ type GoogleSearch = {
 };
 
 const params = new URLSearchParams({
-  "query": "anthropic",
+  "query": "best electric cars 2024",
 });
 
 const response = await fetch(`https://api.piloterr.com/v2/google/search?${params}`, {
@@ -541,7 +549,7 @@ POST https://api.piloterr.com/v2/google/search
 x-api-key: YOUR_API_KEY
 Content-Type: application/json
 
-{"query": "anthropic"}
+{"query": "best electric cars 2024"}
 ```
 </details>
 
@@ -563,38 +571,42 @@ Example response from the API reference, abridged — real values depend on the 
   "knowledge_graph": null,
   "organic_results": [
     {
-      "link": "https://www.anthropic.com/",
-      "title": "Anthropic",
-      "domain": "www.anthropic.com",
-      "source": "Anthropic",
-      "snippet": "Anthropic is an AI safety company. Claude is its assistant.",
+      "link": "https://www.caranddriver.com/rankings/best-electric-cars",
+      "title": "Best Electric Vehicles for 2026, Tested",
+      "domain": "www.caranddriver.com",
+      "source": "Car and Driver",
+      "snippet": "We've ranked the best electric cars, trucks, and SUVs based on roughly 200 data points encompassing acceleration, handling, comfort, carg…",
       "position": 1,
-      "displayed_link": "https://www.anthropic.com",
+      "displayed_link": "https://www.caranddriver.com › rankings › best-electric...",
       "snippet_matched": [
-        "anthropic"
+        "best",
+        "cars"
       ]
     },
     {
-      "link": "https://docs.anthropic.com/",
-      "title": "Anthropic documentation",
-      "domain": "docs.anthropic.com",
-      "source": "Anthropic",
-      "snippet": "Documentation for the Claude API and the Anthropic platform.",
+      "link": "https://www.edmunds.com/electric-car/",
+      "title": "Best Electric Cars of 2026 and 2027 - Expert Reviews and Rankings",
+      "domain": "www.edmunds.com",
+      "source": "Edmunds",
+      "snippet": "Best Electric cars: Tesla Model 3 Long Range, Hyundai IONIQ 6, 2026 Nissan LEAF, 2025 FIAT 500e",
       "position": 2,
-      "displayed_link": "https://docs.anthropic.com",
-      "snippet_matched": []
+      "displayed_link": "https://www.edmunds.com › electric-car",
+      "snippet_matched": [
+        "best",
+        "cars"
+      ]
     }
   ],
   "related_searches": [
     {
-      "query": "Anthropic Claude"
+      "query": "Best electric cars 2024 hybrid"
     },
     {
-      "query": "Anthropic API"
+      "query": "Best electric cars in the world"
     }
   ],
   "search_parameters": {
-    "q": "anthropic",
+    "q": "best electric cars 2024",
     "gl": "us",
     "hl": "en",
     "tbs": null,
@@ -653,8 +665,11 @@ Scrape real-time Google AI Mode answers: text_blocks, references, and shopping_r
 | `query` | string | ✅ | The question or search query to send to Google AI Mode. Natural-language questions work best; advanced operators are also accepted. |
 | `location` | string | — | City or region from which the AI Mode search should originate. Simulates a real user searching from that location. |
 | `uule` | string | — | Google-encoded location string for precise geographic targeting. Mutually exclusive with `location`. |
-| `gl` | string | — | Two-letter country code for the Google AI Mode country context. |
-| `hl` | string | — | Two-letter language code for the Google AI Mode interface language. |
+| `google_domain` | string | — | Google domain to use for the search. Defaults to `google.com`. |
+| `gl` | string | — | Country to use for the Google search. Two-letter country code (e.g. `us` for the United States, `uk` for United Kingdom, or `fr` for France). |
+| `hl` | string | — | Language to use for the Google search. Two or three-letter language code (e.g. `en`, `es`, `fr`), optionally followed by a region code (e.g. `en-gb`, `es-419`). |
+| `cr` | string | — | Limit results to one or more countries. Use `country{XX}` with `\|` as delimiter (e.g. `countryFR\|countryDE`). |
+| `lr` | string | — | Limit results to one or more languages. Use `lang_{xx}` with `\|` as delimiter (e.g. `lang_fr\|lang_de`). |
 
 ### Python example
 
@@ -810,8 +825,11 @@ Retrieve real-time Google Search autocomplete suggestions for any query, with su
 |---|---|---|---|
 | `query` | string | ✅ | The partial or complete search query for which you want to retrieve autocomplete suggestions from Google. |
 | `cp` | number | — | Cursor position in the query string where autocomplete suggestions should be generated. Determines which part of the query is being completed. |
-| `gl` | string | — | Two-letter country code for the Google search country context. Defines which regional Google index is used. |
-| `hl` | string | — | Two-letter language code for the Google interface language. Controls the language in which suggestions are returned. |
+| `google_domain` | string | — | Google domain to use for the search. Defaults to `google.com`. |
+| `gl` | string | — | Country to use for the Google search. Two-letter country code (e.g. `us` for the United States, `uk` for United Kingdom, or `fr` for France). |
+| `hl` | string | — | Language to use for the Google search. Two or three-letter language code (e.g. `en`, `es`, `fr`), optionally followed by a region code (e.g. `en-gb`, `es-419`). |
+| `cr` | string | — | Limit results to one or more countries. Use `country{XX}` with `\|` as delimiter (e.g. `countryFR\|countryDE`). |
+| `lr` | string | — | Limit results to one or more languages. Use `lang_{xx}` with `\|` as delimiter (e.g. `lang_fr\|lang_de`). |
 
 ### Python example
 
@@ -928,10 +946,13 @@ Search Google Shopping and retrieve structured product listings with prices, rat
 |---|---|---|---|
 | `query` | string | ✅ | Product search query on Google Shopping. Use a product name, brand, or category. |
 | `page` | number | — | Page number of Shopping results. Each page returns about 20 products. There is no `num` parameter. |
-| `gl` | string | — | Two-letter country code for the Google Shopping country context. |
-| `hl` | string | — | Two-letter language code for the Google Shopping interface language. |
 | `location` | string | — | City or region used to localize Shopping results. Simulates a search from that location and generates the UULE parameter automatically. |
 | `uule` | string | — | Google-encoded location string (UULE) for precise geo-targeting. Use `location` instead if you do not already have an encoded value. |
+| `google_domain` | string | — | Google domain to use for the search. Defaults to `google.com`. |
+| `gl` | string | — | Country to use for the Google search. Two-letter country code (e.g. `us` for the United States, `uk` for United Kingdom, or `fr` for France). |
+| `hl` | string | — | Language to use for the Google search. Two or three-letter language code (e.g. `en`, `es`, `fr`), optionally followed by a region code (e.g. `en-gb`, `es-419`). |
+| `cr` | string | — | Limit results to one or more countries. Use `country{XX}` with `\|` as delimiter (e.g. `countryFR\|countryDE`). |
+| `lr` | string | — | Limit results to one or more languages. Use `lang_{xx}` with `\|` as delimiter (e.g. `lang_fr\|lang_de`). |
 | `safe` | string | — | Adult content filter. `active` enables Google SafeSearch; `off` disables it. Omit to use Google default. |
 
 ### Python example
@@ -1096,10 +1117,14 @@ Scrape video results from Google Videos search including YouTube, Reddit, and ot
 | `query` | string | ✅ | The video search query to execute on Google Videos. Supports standard Google search operators. |
 | `location` | string | — | City or region from which the video search should originate. |
 | `uule` | string | — | Google-encoded location string for precise geographic targeting. |
-| `gl` | string | — | Two-letter country code for the Google video search country context. |
-| `hl` | string | — | Two-letter language code for the Google interface language. |
+| `google_domain` | string | — | Google domain to use for the search. Defaults to `google.com`. |
+| `gl` | string | — | Country to use for the Google search. Two-letter country code (e.g. `us` for the United States, `uk` for United Kingdom, or `fr` for France). |
+| `hl` | string | — | Language to use for the Google search. Two or three-letter language code (e.g. `en`, `es`, `fr`), optionally followed by a region code (e.g. `en-gb`, `es-419`). |
+| `cr` | string | — | Limit results to one or more countries. Use `country{XX}` with `\|` as delimiter (e.g. `countryFR\|countryDE`). |
+| `lr` | string | — | Limit results to one or more languages. Use `lang_{xx}` with `\|` as delimiter (e.g. `lang_fr\|lang_de`). |
 | `page` | number | — | Page number of video results to retrieve. |
 | `num` | number | — | Maximum number of video results to return per page. |
+| `safe` | string | — | Adult content filter. `active` enables Google SafeSearch; `off` disables it. Omit to use Google default. |
 
 ### Python example
 
@@ -1340,7 +1365,9 @@ Use Piloterr from your own language with a typed client:
 
 - [Bing Scraper API](https://github.com/piloterr/bing-scraper)
 - [Brave Scraper API](https://github.com/piloterr/brave-scraper)
+- [DuckDuckGo Scraper API](https://github.com/piloterr/duckduckgo-scraper)
 - [Google Ads Transparency Scraper API](https://github.com/piloterr/googleadstransparency-scraper)
+- [Yahoo Scraper API](https://github.com/piloterr/yahoo-scraper)
 - [All Piloterr scrapers on GitHub](https://github.com/piloterr)
 
 ## Support

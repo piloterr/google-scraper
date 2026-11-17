@@ -10,7 +10,7 @@ using var http = new HttpClient { Timeout = TimeSpan.FromSeconds(120) };
 http.DefaultRequestHeaders.Add("x-api-key", apiKey);
 
 var query =
-    "query=" + Uri.EscapeDataString("anthropic");
+    "query=" + Uri.EscapeDataString("best electric cars 2024");
 
 var response = await http.GetAsync("https://api.piloterr.com/v2/google/search?" + query);
 var body = await response.Content.ReadAsStringAsync();
